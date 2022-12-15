@@ -14,6 +14,12 @@ public class Todo {
     public Todo() {
     }
 
+    public Todo(String id, String text, Boolean done) {
+        this.id = id;
+        this.text = text;
+        this.done = done;
+    }
+
     public String getId() {
         return id;
     }
