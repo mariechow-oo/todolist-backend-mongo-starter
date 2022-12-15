@@ -37,4 +37,8 @@ public class TodoService {
         existingTodo.setText(todo.getText());
         return todoRepository.save(existingTodo);
     }
+
+    public void delete(String id) {
+        todoRepository.deleteById(id);
+    }
 }
