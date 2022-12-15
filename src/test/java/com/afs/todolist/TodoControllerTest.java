@@ -73,6 +73,28 @@ public class TodoControllerTest {
         assertThat(todos.get(0).getDone(), equalTo(done));
     }
     @Test
+    void should_return_updated_todo_when_perform_put_given_todo() throws Exception {
+        //given
+        String id = new ObjectId().toString();
+        todoRepository.save(new Todo(id, "old", true));
+        Todo toUpdateTodo = new Todo(id, "new", false);
+        String newTodoJson = new ObjectMapper().writeValueAsString(toUpdateTodo);
+
+        //when
+        client.perform(MockMvcRequestBuilders.put("/todos/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newTodoJson))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isString())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.text").value("new"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.done").value(false));
+
+        // then
+        final Todo updatedTodo = todoRepository.findAll().get(0);
+        assertThat(updatedTodo.getText(), equalTo("new"));
+        assertThat(updatedTodo.getDone(), equalTo(false));
+    }
+    @Test
     void should_return_204_when_perform_delete_given_todos() throws Exception {
         //given
         String id = new ObjectId().toString();
