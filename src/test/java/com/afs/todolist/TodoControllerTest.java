@@ -44,4 +44,18 @@ public class TodoControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].text").value("test1"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].done").value(false));
     }
+
+    @Test
+    void should_return_204_when_perform_delete_given_todos() throws Exception {
+        //given
+        String id = new ObjectId().toString();
+        todoRepository.save(new Todo(id, "test1", false));
+
+        //when
+        client.perform(MockMvcRequestBuilders.delete("/todos/{id}" , id))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        //then
+        assertThat(todoRepository.findAll(), empty());
+    }
 }
