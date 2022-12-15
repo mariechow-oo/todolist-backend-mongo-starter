@@ -12,7 +12,6 @@ public class CORSConfiguration {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                // registry default nth allow
                 registry.addMapping("/**")
                         .allowedMethods("GET", "POST", "DELETE", "PUT")
                         .allowedOrigins("http://localhost:3000/");
