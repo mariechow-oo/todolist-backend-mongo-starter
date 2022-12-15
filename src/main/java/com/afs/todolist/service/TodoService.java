@@ -31,6 +31,7 @@ public class TodoService {
     public Todo add(Todo todo) { return todoRepository.save(todo); }
 
     public Todo update(String id, Todo todo) {
+        validateObjectId(id);
         Todo existingTodo = todoRepository.findById(id)
                 .orElseThrow(() -> new TodoNotFoundException(id));
         existingTodo.setDone(todo.getDone());
@@ -39,6 +40,7 @@ public class TodoService {
     }
 
     public void delete(String id) {
+        validateObjectId(id);
         todoRepository.deleteById(id);
     }
 }
