@@ -26,4 +26,6 @@ public class TodoService {
             throw new InvalidIdException(id);
         }
     }
+
+    public Todo add(Todo todo) { return todoRepository.save(todo); }
 }

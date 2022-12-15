@@ -12,6 +12,7 @@ public class TodoMapper {
     public Todo toEntity(TodoCreateRequest request) {
         Todo todo = new Todo();
         BeanUtils.copyProperties(request, todo);
+        todo.setDone(false);
         return todo;
     }
 
