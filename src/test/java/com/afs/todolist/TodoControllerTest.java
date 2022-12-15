@@ -58,4 +58,13 @@ public class TodoControllerTest {
         //then
         assertThat(todoRepository.findAll(), empty());
     }
+    @Test
+    void should_return_400_when_perform_delete_given_invalid_id_and_todos() throws Exception {
+        //given & when
+        client.perform(MockMvcRequestBuilders.delete("/todos/{id}" , "1"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+
+        //then
+        assertThat(todoRepository.findAll(), empty());
+    }
 }
